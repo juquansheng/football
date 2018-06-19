@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yicuojin.football.mapper.FootballUserMapper" >
+  <resultMap id="BaseResultMap" type="com.yicuojin.football.dao.FootballUser" >
+    <id column="WeiXinID" property="weixinid" jdbcType="INTEGER" />
+    <result column="Openid" property="openid" jdbcType="VARCHAR" />
+    <result column="Unionid" property="unionid" jdbcType="VARCHAR" />
+    <result column="Nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="VARCHAR" />
+    <result column="Province" property="province" jdbcType="VARCHAR" />
+    <result column="City" property="city" jdbcType="VARCHAR" />
+    <result column="Country" property="country" jdbcType="VARCHAR" />
+    <result column="Headimg" property="headimg" jdbcType="VARCHAR" />
+    <result column="Access_token" property="accessToken" jdbcType="VARCHAR" />
+    <result column="Refresh_token" property="refreshToken" jdbcType="VARCHAR" />
+    <result column="FocusTime" property="focustime" jdbcType="VARCHAR" />
+    <result column="Expires_in" property="expiresIn" jdbcType="INTEGER" />
+    <result column="Source" property="source" jdbcType="INTEGER" />
+    <result column="CreateTime" property="createtime" jdbcType="VARCHAR" />
+    <result column="Sessionkey" property="sessionkey" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    WeiXinID, Openid, Unionid, Nickname, Sex, Province, City, Country, Headimg, Access_token, 
+    Refresh_token, FocusTime, Expires_in, Source, CreateTime, Sessionkey
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yicuojin.football.dao.FootballUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from football_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from football_user
+    where WeiXinID = #{weixinid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from football_user
+    where WeiXinID = #{weixinid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yicuojin.football.dao.FootballUserExample" >
+    delete from football_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yicuojin.football.dao.FootballUser" >
+    insert into football_user (WeiXinID, Openid, Unionid, 
+      Nickname, Sex, Province, 
+      City, Country, Headimg, 
+      Access_token, Refresh_token, FocusTime, 
+      Expires_in, Source, CreateTime, 
+      Sessionkey)
+    values (#{weixinid,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{headimg,jdbcType=VARCHAR}, 
+      #{accessToken,jdbcType=VARCHAR}, #{refreshToken,jdbcType=VARCHAR}, #{focustime,jdbcType=VARCHAR}, 
+      #{expiresIn,jdbcType=INTEGER}, #{source,jdbcType=INTEGER}, #{createtime,jdbcType=VARCHAR}, 
+      #{sessionkey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yicuojin.football.dao.FootballUser" >
+    insert into football_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="weixinid != null" >
+        WeiXinID,
+      </if>
+      <if test="openid != null" >
+        Openid,
+      </if>
+      <if test="unionid != null" >
+        Unionid,
+      </if>
+      <if test="nickname != null" >
+        Nickname,
+      </if>
+      <if test="sex != null" >
+        Sex,
+      </if>
+      <if test="province != null" >
+        Province,
+      </if>
+      <if test="city != null" >
+        City,
+      </if>
+      <if test="country != null" >
+        Country,
+      </if>
+      <if test="headimg != null" >
+        Headimg,
+      </if>
+      <if test="accessToken != null" >
+        Access_token,
+      </if>
+      <if test="refreshToken != null" >
+        Refresh_token,
+      </if>
+      <if test="focustime != null" >
+        FocusTime,
+      </if>
+      <if test="expiresIn != null" >
+        Expires_in,
+      </if>
+      <if test="source != null" >
+        Source,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="sessionkey != null" >
+        Sessionkey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="weixinid != null" >
+        #{weixinid,jdbcType=INTEGER},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimg != null" >
+        #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null" >
+        #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshToken != null" >
+        #{refreshToken,jdbcType=VARCHAR},
+      </if>
+      <if test="focustime != null" >
+        #{focustime,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null" >
+        #{expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionkey != null" >
+        #{sessionkey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yicuojin.football.dao.FootballUserExample" resultType="java.lang.Integer" >
+    select count(*) from football_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update football_user
+    <set >
+      <if test="record.weixinid != null" >
+        WeiXinID = #{record.weixinid,jdbcType=INTEGER},
+      </if>
+      <if test="record.openid != null" >
+        Openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionid != null" >
+        Unionid = #{record.unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null" >
+        Nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        Sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        Province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        City = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.country != null" >
+        Country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.headimg != null" >
+        Headimg = #{record.headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessToken != null" >
+        Access_token = #{record.accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refreshToken != null" >
+        Refresh_token = #{record.refreshToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.focustime != null" >
+        FocusTime = #{record.focustime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expiresIn != null" >
+        Expires_in = #{record.expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="record.source != null" >
+        Source = #{record.source,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null" >
+        CreateTime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sessionkey != null" >
+        Sessionkey = #{record.sessionkey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update football_user
+    set WeiXinID = #{record.weixinid,jdbcType=INTEGER},
+      Openid = #{record.openid,jdbcType=VARCHAR},
+      Unionid = #{record.unionid,jdbcType=VARCHAR},
+      Nickname = #{record.nickname,jdbcType=VARCHAR},
+      Sex = #{record.sex,jdbcType=VARCHAR},
+      Province = #{record.province,jdbcType=VARCHAR},
+      City = #{record.city,jdbcType=VARCHAR},
+      Country = #{record.country,jdbcType=VARCHAR},
+      Headimg = #{record.headimg,jdbcType=VARCHAR},
+      Access_token = #{record.accessToken,jdbcType=VARCHAR},
+      Refresh_token = #{record.refreshToken,jdbcType=VARCHAR},
+      FocusTime = #{record.focustime,jdbcType=VARCHAR},
+      Expires_in = #{record.expiresIn,jdbcType=INTEGER},
+      Source = #{record.source,jdbcType=INTEGER},
+      CreateTime = #{record.createtime,jdbcType=VARCHAR},
+      Sessionkey = #{record.sessionkey,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yicuojin.football.dao.FootballUser" >
+    update football_user
+    <set >
+      <if test="openid != null" >
+        Openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null" >
+        Unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        Nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        Sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        Province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="headimg != null" >
+        Headimg = #{headimg,jdbcType=VARCHAR},
+      </if>
+      <if test="accessToken != null" >
+        Access_token = #{accessToken,jdbcType=VARCHAR},
+      </if>
+      <if test="refreshToken != null" >
+        Refresh_token = #{refreshToken,jdbcType=VARCHAR},
+      </if>
+      <if test="focustime != null" >
+        FocusTime = #{focustime,jdbcType=VARCHAR},
+      </if>
+      <if test="expiresIn != null" >
+        Expires_in = #{expiresIn,jdbcType=INTEGER},
+      </if>
+      <if test="source != null" >
+        Source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionkey != null" >
+        Sessionkey = #{sessionkey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where WeiXinID = #{weixinid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yicuojin.football.dao.FootballUser" >
+    update football_user
+    set Openid = #{openid,jdbcType=VARCHAR},
+      Unionid = #{unionid,jdbcType=VARCHAR},
+      Nickname = #{nickname,jdbcType=VARCHAR},
+      Sex = #{sex,jdbcType=VARCHAR},
+      Province = #{province,jdbcType=VARCHAR},
+      City = #{city,jdbcType=VARCHAR},
+      Country = #{country,jdbcType=VARCHAR},
+      Headimg = #{headimg,jdbcType=VARCHAR},
+      Access_token = #{accessToken,jdbcType=VARCHAR},
+      Refresh_token = #{refreshToken,jdbcType=VARCHAR},
+      FocusTime = #{focustime,jdbcType=VARCHAR},
+      Expires_in = #{expiresIn,jdbcType=INTEGER},
+      Source = #{source,jdbcType=INTEGER},
+      CreateTime = #{createtime,jdbcType=VARCHAR},
+      Sessionkey = #{sessionkey,jdbcType=VARCHAR}
+    where WeiXinID = #{weixinid,jdbcType=INTEGER}
+  </update>
+</mapper>

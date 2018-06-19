@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yicuojin.football.mapper.FootballGuessRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.yicuojin.football.dao.FootballGuessRecord" >
+    <id column="Id" property="id" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="INTEGER" />
+    <result column="MatchId" property="matchid" jdbcType="INTEGER" />
+    <result column="UserGuess" property="userguess" jdbcType="INTEGER" />
+    <result column="MatchResult" property="matchresult" jdbcType="INTEGER" />
+    <result column="Status" property="status" jdbcType="INTEGER" />
+    <result column="Bets" property="bets" jdbcType="DECIMAL" />
+    <result column="Reward" property="reward" jdbcType="DECIMAL" />
+    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="UpdateTime" property="updatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Id, UserId, MatchId, UserGuess, MatchResult, Status, Bets, Reward, CreateTime, UpdateTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yicuojin.football.dao.FootballGuessRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from football_guess_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from football_guess_record
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from football_guess_record
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yicuojin.football.dao.FootballGuessRecordExample" >
+    delete from football_guess_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yicuojin.football.dao.FootballGuessRecord" >
+    insert into football_guess_record (Id, UserId, MatchId, 
+      UserGuess, MatchResult, Status, 
+      Bets, Reward, CreateTime, 
+      UpdateTime)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{matchid,jdbcType=INTEGER}, 
+      #{userguess,jdbcType=INTEGER}, #{matchresult,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{bets,jdbcType=DECIMAL}, #{reward,jdbcType=DECIMAL}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yicuojin.football.dao.FootballGuessRecord" >
+    insert into football_guess_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        Id,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="matchid != null" >
+        MatchId,
+      </if>
+      <if test="userguess != null" >
+        UserGuess,
+      </if>
+      <if test="matchresult != null" >
+        MatchResult,
+      </if>
+      <if test="status != null" >
+        Status,
+      </if>
+      <if test="bets != null" >
+        Bets,
+      </if>
+      <if test="reward != null" >
+        Reward,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="matchid != null" >
+        #{matchid,jdbcType=INTEGER},
+      </if>
+      <if test="userguess != null" >
+        #{userguess,jdbcType=INTEGER},
+      </if>
+      <if test="matchresult != null" >
+        #{matchresult,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bets != null" >
+        #{bets,jdbcType=DECIMAL},
+      </if>
+      <if test="reward != null" >
+        #{reward,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yicuojin.football.dao.FootballGuessRecordExample" resultType="java.lang.Integer" >
+    select count(*) from football_guess_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update football_guess_record
+    <set >
+      <if test="record.id != null" >
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        UserId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.matchid != null" >
+        MatchId = #{record.matchid,jdbcType=INTEGER},
+      </if>
+      <if test="record.userguess != null" >
+        UserGuess = #{record.userguess,jdbcType=INTEGER},
+      </if>
+      <if test="record.matchresult != null" >
+        MatchResult = #{record.matchresult,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        Status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.bets != null" >
+        Bets = #{record.bets,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reward != null" >
+        Reward = #{record.reward,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createtime != null" >
+        CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null" >
+        UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update football_guess_record
+    set Id = #{record.id,jdbcType=INTEGER},
+      UserId = #{record.userid,jdbcType=INTEGER},
+      MatchId = #{record.matchid,jdbcType=INTEGER},
+      UserGuess = #{record.userguess,jdbcType=INTEGER},
+      MatchResult = #{record.matchresult,jdbcType=INTEGER},
+      Status = #{record.status,jdbcType=INTEGER},
+      Bets = #{record.bets,jdbcType=DECIMAL},
+      Reward = #{record.reward,jdbcType=DECIMAL},
+      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+      UpdateTime = #{record.updatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yicuojin.football.dao.FootballGuessRecord" >
+    update football_guess_record
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="matchid != null" >
+        MatchId = #{matchid,jdbcType=INTEGER},
+      </if>
+      <if test="userguess != null" >
+        UserGuess = #{userguess,jdbcType=INTEGER},
+      </if>
+      <if test="matchresult != null" >
+        MatchResult = #{matchresult,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        Status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="bets != null" >
+        Bets = #{bets,jdbcType=DECIMAL},
+      </if>
+      <if test="reward != null" >
+        Reward = #{reward,jdbcType=DECIMAL},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        UpdateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yicuojin.football.dao.FootballGuessRecord" >
+    update football_guess_record
+    set UserId = #{userid,jdbcType=INTEGER},
+      MatchId = #{matchid,jdbcType=INTEGER},
+      UserGuess = #{userguess,jdbcType=INTEGER},
+      MatchResult = #{matchresult,jdbcType=INTEGER},
+      Status = #{status,jdbcType=INTEGER},
+      Bets = #{bets,jdbcType=DECIMAL},
+      Reward = #{reward,jdbcType=DECIMAL},
+      CreateTime = #{createtime,jdbcType=TIMESTAMP},
+      UpdateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="countBetsByExample" parameterType="com.yicuojin.football.dao.FootballGuessRecordExample" resultType="java.math.BigDecimal" >
+    select sum(football_guess_record.Bets) from football_guess_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+</mapper>
