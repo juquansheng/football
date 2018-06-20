@@ -34,6 +34,8 @@ public class MatchService implements IMatchService {
     private FootballAmountMapper footballAmountMapper;
     @Autowired
     private FootballMessageMapper footballMessageMapper;
+    @Autowired
+    private FootballAmountRecordMapper footballAmountRecordMapper;
     private Logger logger = Logger.getLogger(MatchService.class);
     @Override
     public List<MatchInfoVo> getUserMatchList(Integer userID) {
@@ -359,6 +361,13 @@ public class MatchService implements IMatchService {
                     footballAmount.setUpdatetime(new Date());
                     footballAmount.setTotalamount(totalAmount.subtract(bet));
                     footballAmountMapper.updateByPrimaryKeySelective(footballAmount);
+                    //添加积分使用记录
+                    FootballAmountRecord footballAmountRecord = new FootballAmountRecord();
+                    footballAmountRecord.setAmount(bet);
+                    footballAmountRecord.setCreatetime(new Date());
+                    footballAmountRecord.setUserid(userId);
+                    footballAmountRecord.setType(1);
+                    footballAmountRecordMapper.insertSelective(footballAmountRecord);
                     //添加用户下注记录
                     FootballGuessRecord footballGuessRecord = new FootballGuessRecord();
                     footballGuessRecord.setCreatetime(new Date());

@@ -45,7 +45,7 @@
         <!-- !!!! Table Configurations !!!! -->
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等-->
 
-        <table tableName="football_match" domainObjectName="FootballMatch" enableCountByExample="true"
+        <table tableName="football_amount_record" domainObjectName="FootballAmountRecord" enableCountByExample="true"
                enableSelectByExample="true"/>
         <!--<table tableName="football_guess_record" domainObjectName="FootballGuessRecord" enableCountByExample="true"
                enableSelectByExample="true"/>-->

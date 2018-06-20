@@ -53,28 +53,28 @@ public class GuessRecornService implements IGuessRecornService {
             //用户猜测
             String userGuess = "";
             if (footballGuessRecord.getUserguess() == 1){
-                userGuess = "您猜"+footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeama()).getName() + "胜,";
+                userGuess = "您猜"+footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeama()).getName() + "胜";
             }else if(footballGuessRecord.getUserguess() == 2){
-                userGuess = "您猜"+footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeamb()).getName() + "胜,";
+                userGuess = "您猜"+footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeamb()).getName() + "胜";
             }else if (footballGuessRecord.getUserguess() == 3){
-                userGuess = "您猜结果为平局,";
+                userGuess = "您猜结果为平局";
             }
-            //比赛结果
+            /*//比赛结果
             String result = "";
             if (footballMatch.getResult() == 1){
-                result = footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeama()).getName() + "胜,";
+                result = ""+footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeama()).getName() + "胜,";
             }else if(footballMatch.getResult() == 2){
-                result = footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeamb()).getName() + "胜,";
+                result = ""+footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeamb()).getName() + "胜,";
             }else if (footballMatch.getResult() == 3){
                 result = "比赛结果为平局,";
-            }
+            }*/
             String end = "";
             if (footballGuessRecord.getMatchresult() == 1){
-                end = "获得" + footballGuessRecord.getReward()+ "积分";
+                end = ",获得" + footballGuessRecord.getReward()+ "积分";
             }else if (footballGuessRecord.getMatchresult() == 2){
-                end = "下次加油";
+                end = ",下次加油";
             }
-            guessRecordVo.setDescribe(result + userGuess +end);
+            guessRecordVo.setDescribe(userGuess +end);
             guessRecordVoList.add(guessRecordVo);
         }
 
