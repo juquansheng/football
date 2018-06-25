@@ -12,12 +12,12 @@ public class ShareController {
     private IShareService shareService;
     @RequestMapping(value = "share", method = RequestMethod.GET)
     @ResponseBody
-    public YCJResult share(@RequestParam("userId") Integer userId,@RequestParam("receiveId") Integer receiveId) {
-        boolean integral = shareService.addIntegral(userId, receiveId);
-        if (integral){
-            return YCJResult.build(200, "成功", true);
+    public YCJResult share(@RequestParam("shareId") Integer shareId,@RequestParam("receiveId") Integer receiveId) {
+        if (shareId < 1){
+            return YCJResult.build(500, "失败", "分享链接失败");
         }else {
-            return YCJResult.build(500, "失败", false);
+            String integral = shareService.addIntegral(shareId, receiveId);
+            return YCJResult.build(200, "成功", integral);
         }
     }
 }
