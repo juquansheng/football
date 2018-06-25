@@ -476,73 +476,73 @@ public class FootballRedeemCodeExample {
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNull() {
-            addCriterion("Desc is null");
+        public Criteria andRedeemdescrIsNull() {
+            addCriterion("RedeemDescr is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNotNull() {
-            addCriterion("Desc is not null");
+        public Criteria andRedeemdescrIsNotNull() {
+            addCriterion("RedeemDescr is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescEqualTo(String value) {
-            addCriterion("Desc =", value, "desc");
+        public Criteria andRedeemdescrEqualTo(String value) {
+            addCriterion("RedeemDescr =", value, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotEqualTo(String value) {
-            addCriterion("Desc <>", value, "desc");
+        public Criteria andRedeemdescrNotEqualTo(String value) {
+            addCriterion("RedeemDescr <>", value, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThan(String value) {
-            addCriterion("Desc >", value, "desc");
+        public Criteria andRedeemdescrGreaterThan(String value) {
+            addCriterion("RedeemDescr >", value, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThanOrEqualTo(String value) {
-            addCriterion("Desc >=", value, "desc");
+        public Criteria andRedeemdescrGreaterThanOrEqualTo(String value) {
+            addCriterion("RedeemDescr >=", value, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThan(String value) {
-            addCriterion("Desc <", value, "desc");
+        public Criteria andRedeemdescrLessThan(String value) {
+            addCriterion("RedeemDescr <", value, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThanOrEqualTo(String value) {
-            addCriterion("Desc <=", value, "desc");
+        public Criteria andRedeemdescrLessThanOrEqualTo(String value) {
+            addCriterion("RedeemDescr <=", value, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescLike(String value) {
-            addCriterion("Desc like", value, "desc");
+        public Criteria andRedeemdescrLike(String value) {
+            addCriterion("RedeemDescr like", value, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotLike(String value) {
-            addCriterion("Desc not like", value, "desc");
+        public Criteria andRedeemdescrNotLike(String value) {
+            addCriterion("RedeemDescr not like", value, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescIn(List<String> values) {
-            addCriterion("Desc in", values, "desc");
+        public Criteria andRedeemdescrIn(List<String> values) {
+            addCriterion("RedeemDescr in", values, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotIn(List<String> values) {
-            addCriterion("Desc not in", values, "desc");
+        public Criteria andRedeemdescrNotIn(List<String> values) {
+            addCriterion("RedeemDescr not in", values, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescBetween(String value1, String value2) {
-            addCriterion("Desc between", value1, value2, "desc");
+        public Criteria andRedeemdescrBetween(String value1, String value2) {
+            addCriterion("RedeemDescr between", value1, value2, "redeemdescr");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotBetween(String value1, String value2) {
-            addCriterion("Desc not between", value1, value2, "desc");
+        public Criteria andRedeemdescrNotBetween(String value1, String value2) {
+            addCriterion("RedeemDescr not between", value1, value2, "redeemdescr");
             return (Criteria) this;
         }
 

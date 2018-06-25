@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class WxService implements IWxService {
     private FootballBallParamMapper footballBallParamMapper;
     @Autowired
     private FootballAmountMapper footballAmountMapper;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public FootballUser getAndSaveResultByCode(String code) {
@@ -69,7 +71,7 @@ public class WxService implements IWxService {
                         footballUser.setOpenid(jsonObj.getString("openid"));
                         footballUser.setSessionkey(jsonObj.getString("session_key"));
                         footballUser.setSource(1);
-                        footballUser.setCreatetime(new Date().toString());
+                        footballUser.setCreatetime(format.format(new Date()));
 
                         int i = footballUserMapper.insertSelective(footballUser);
                         FootballUserExample footballUserExample = new FootballUserExample();
@@ -86,7 +88,7 @@ public class WxService implements IWxService {
                         footballUser.setOpenid(jsonObj.getString("openid"));
                         footballUser.setSessionkey(jsonObj.getString("session_key"));
                         footballUser.setSource(1);
-                        footballUser.setCreatetime(new Date().toString());
+                        footballUser.setCreatetime(format.format(new Date()));
 
                         int i = footballUserMapper.insertSelective(footballUser);
                         FootballUserExample footballUserExample = new FootballUserExample();

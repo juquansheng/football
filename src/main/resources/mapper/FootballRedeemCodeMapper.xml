@@ -8,7 +8,7 @@
     <result column="RedeemCode" property="redeemcode" jdbcType="VARCHAR" />
     <result column="Type" property="type" jdbcType="INTEGER" />
     <result column="AppAccount" property="appaccount" jdbcType="DECIMAL" />
-    <result column="Desc" property="desc" jdbcType="VARCHAR" />
+    <result column="RedeemDescr" property="redeemdescr" jdbcType="VARCHAR" />
     <result column="Status" property="status" jdbcType="INTEGER" />
     <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
     <result column="UseTime" property="usetime" jdbcType="TIMESTAMP" />
@@ -72,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    Id, UserId, UseId, RedeemCode, Type, AppAccount, Desc, Status, CreateTime, UseTime
+    Id, UserId, UseId, RedeemCode, Type, AppAccount, RedeemDescr, Status, CreateTime, 
+    UseTime
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yicuojin.football.dao.FootballRedeemCodeExample" >
     select
@@ -107,11 +108,11 @@
   <insert id="insert" parameterType="com.yicuojin.football.dao.FootballRedeemCode" >
     insert into football_redeem_code (Id, UserId, UseId, 
       RedeemCode, Type, AppAccount, 
-      Desc, Status, CreateTime, 
+      RedeemDescr, Status, CreateTime, 
       UseTime)
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{useid,jdbcType=INTEGER}, 
       #{redeemcode,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{appaccount,jdbcType=DECIMAL}, 
-      #{desc,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{redeemdescr,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, 
       #{usetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.yicuojin.football.dao.FootballRedeemCode" >
@@ -135,8 +136,8 @@
       <if test="appaccount != null" >
         AppAccount,
       </if>
-      <if test="desc != null" >
-        Desc,
+      <if test="redeemdescr != null" >
+        RedeemDescr,
       </if>
       <if test="status != null" >
         Status,
@@ -167,8 +168,8 @@
       <if test="appaccount != null" >
         #{appaccount,jdbcType=DECIMAL},
       </if>
-      <if test="desc != null" >
-        #{desc,jdbcType=VARCHAR},
+      <if test="redeemdescr != null" >
+        #{redeemdescr,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
@@ -208,8 +209,8 @@
       <if test="record.appaccount != null" >
         AppAccount = #{record.appaccount,jdbcType=DECIMAL},
       </if>
-      <if test="record.desc != null" >
-        Desc = #{record.desc,jdbcType=VARCHAR},
+      <if test="record.redeemdescr != null" >
+        RedeemDescr = #{record.redeemdescr,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
         Status = #{record.status,jdbcType=INTEGER},
@@ -233,7 +234,7 @@
       RedeemCode = #{record.redeemcode,jdbcType=VARCHAR},
       Type = #{record.type,jdbcType=INTEGER},
       AppAccount = #{record.appaccount,jdbcType=DECIMAL},
-      Desc = #{record.desc,jdbcType=VARCHAR},
+      RedeemDescr = #{record.redeemdescr,jdbcType=VARCHAR},
       Status = #{record.status,jdbcType=INTEGER},
       CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
       UseTime = #{record.usetime,jdbcType=TIMESTAMP}
@@ -259,8 +260,8 @@
       <if test="appaccount != null" >
         AppAccount = #{appaccount,jdbcType=DECIMAL},
       </if>
-      <if test="desc != null" >
-        Desc = #{desc,jdbcType=VARCHAR},
+      <if test="redeemdescr != null" >
+        RedeemDescr = #{redeemdescr,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
         Status = #{status,jdbcType=INTEGER},
@@ -281,7 +282,7 @@
       RedeemCode = #{redeemcode,jdbcType=VARCHAR},
       Type = #{type,jdbcType=INTEGER},
       AppAccount = #{appaccount,jdbcType=DECIMAL},
-      Desc = #{desc,jdbcType=VARCHAR},
+      RedeemDescr = #{redeemdescr,jdbcType=VARCHAR},
       Status = #{status,jdbcType=INTEGER},
       CreateTime = #{createtime,jdbcType=TIMESTAMP},
       UseTime = #{usetime,jdbcType=TIMESTAMP}

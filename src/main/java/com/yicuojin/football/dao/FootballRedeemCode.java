@@ -16,7 +16,7 @@ public class FootballRedeemCode {
 
     private BigDecimal appaccount;
 
-    private String desc;
+    private String redeemdescr;
 
     private Integer status;
 
@@ -72,12 +72,12 @@ public class FootballRedeemCode {
         this.appaccount = appaccount;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getRedeemdescr() {
+        return redeemdescr;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setRedeemdescr(String redeemdescr) {
+        this.redeemdescr = redeemdescr == null ? null : redeemdescr.trim();
     }
 
     public Integer getStatus() {
