@@ -286,6 +286,66 @@ public class FootballRedeemCodeExample {
             return (Criteria) this;
         }
 
+        public Criteria andRedeemgoodsidIsNull() {
+            addCriterion("RedeemGoodsId is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidIsNotNull() {
+            addCriterion("RedeemGoodsId is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidEqualTo(Integer value) {
+            addCriterion("RedeemGoodsId =", value, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidNotEqualTo(Integer value) {
+            addCriterion("RedeemGoodsId <>", value, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidGreaterThan(Integer value) {
+            addCriterion("RedeemGoodsId >", value, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("RedeemGoodsId >=", value, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidLessThan(Integer value) {
+            addCriterion("RedeemGoodsId <", value, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidLessThanOrEqualTo(Integer value) {
+            addCriterion("RedeemGoodsId <=", value, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidIn(List<Integer> values) {
+            addCriterion("RedeemGoodsId in", values, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidNotIn(List<Integer> values) {
+            addCriterion("RedeemGoodsId not in", values, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidBetween(Integer value1, Integer value2) {
+            addCriterion("RedeemGoodsId between", value1, value2, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRedeemgoodsidNotBetween(Integer value1, Integer value2) {
+            addCriterion("RedeemGoodsId not between", value1, value2, "redeemgoodsid");
+            return (Criteria) this;
+        }
+
         public Criteria andRedeemcodeIsNull() {
             addCriterion("RedeemCode is null");
             return (Criteria) this;

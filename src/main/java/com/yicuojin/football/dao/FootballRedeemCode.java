@@ -10,6 +10,8 @@ public class FootballRedeemCode {
 
     private Integer useid;
 
+    private Integer redeemgoodsid;
+
     private String redeemcode;
 
     private Integer type;
@@ -46,6 +48,14 @@ public class FootballRedeemCode {
 
     public void setUseid(Integer useid) {
         this.useid = useid;
+    }
+
+    public Integer getRedeemgoodsid() {
+        return redeemgoodsid;
+    }
+
+    public void setRedeemgoodsid(Integer redeemgoodsid) {
+        this.redeemgoodsid = redeemgoodsid;
     }
 
     public String getRedeemcode() {
