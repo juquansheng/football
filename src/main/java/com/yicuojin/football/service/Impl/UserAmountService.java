@@ -15,14 +15,15 @@ import java.util.List;
 public class UserAmountService implements IUserAmountService {
     @Autowired
     private FootballAmountMapper footballAmountMapper;
+
     @Override
     public BigDecimal getUserAmount(Integer userId) {
         FootballAmountExample footballAmountExample = new FootballAmountExample();
         footballAmountExample.createCriteria().andUseridEqualTo(userId);
         List<FootballAmount> footballAmounts = footballAmountMapper.selectByExample(footballAmountExample);
-        if (!ListUtils.isEmpty(footballAmounts)){
+        if (!ListUtils.isEmpty(footballAmounts)) {
             return footballAmounts.get(0).getTotalamount();
-        }else {
+        } else {
             return new BigDecimal(0.00);
         }
 

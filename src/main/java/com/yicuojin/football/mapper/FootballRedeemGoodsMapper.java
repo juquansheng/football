@@ -2,7 +2,9 @@ package com.yicuojin.football.mapper;
 
 import com.yicuojin.football.dao.FootballRedeemGoods;
 import com.yicuojin.football.dao.FootballRedeemGoodsExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface FootballRedeemGoodsMapper {

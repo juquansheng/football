@@ -2,7 +2,9 @@ package com.yicuojin.football.mapper;
 
 import com.yicuojin.football.dao.FootballAmount;
 import com.yicuojin.football.dao.FootballAmountExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface FootballAmountMapper {
@@ -27,5 +29,6 @@ public interface FootballAmountMapper {
     int updateByPrimaryKeySelective(FootballAmount record);
 
     int updateByPrimaryKey(FootballAmount record);
+
     List<FootballAmount> selectRank();
 }

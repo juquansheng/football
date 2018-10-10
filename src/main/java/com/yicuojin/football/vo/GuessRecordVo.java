@@ -56,12 +56,15 @@ public class GuessRecordVo {
     public BigDecimal getBets() {
         return bets;
     }
+
     public void setBets(BigDecimal bets) {
         this.bets = bets;
     }
+
     public String getUpdateTime() {
         return updateTime;
     }
+
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }

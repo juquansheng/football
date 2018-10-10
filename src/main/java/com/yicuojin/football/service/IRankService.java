@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface IRankService {
     int getUserRank(Integer userId);
+
     List<RankVo> getRankList(Integer userId);
 }

@@ -18,6 +18,7 @@ public class RankService implements IRankService {
     private FootballAmountMapper footballAmountMapper;
     @Autowired
     private FootballUserMapper footballUserMapper;
+
     @Override
     public int getUserRank(Integer userId) {
         FootballAmountExample footballAmountExample = new FootballAmountExample();
@@ -30,25 +31,25 @@ public class RankService implements IRankService {
 
     @Override
     public List<RankVo> getRankList(Integer userId) {
-        List<RankVo> rankVoList= Lists.newArrayList();
+        List<RankVo> rankVoList = Lists.newArrayList();
         List<FootballAmount> footballAmountList = footballAmountMapper.selectRank();
-        for (int i= 0; i <footballAmountList.size(); i++){
+        for (int i = 0; i < footballAmountList.size(); i++) {
             RankVo rankVo = new RankVo();
             FootballAmount footballAmount = footballAmountList.get(i);
             rankVo.setAmount(footballAmount.getTotalamount());
-            rankVo.setRank(i+1);
+            rankVo.setRank(i + 1);
             rankVo.setUserId(footballAmount.getUserid());
             rankVo.setHead(footballUserMapper.selectByPrimaryKey(footballAmount.getUserid()).getHeadimg());
-            if (footballAmount.getUserid() == userId){
+            if (footballAmount.getUserid() == userId) {
                 rankVo.setIsMe(1);
                 rankVo.setName("我");
-            }else {
+            } else {
                 rankVo.setIsMe(0);
                 rankVo.setName(footballUserMapper.selectByPrimaryKey(footballAmount.getUserid()).getNickname());
             }
             rankVoList.add(rankVo);
         }
-        if (!this.isInList(rankVoList,userId)){
+        if (!this.isInList(rankVoList, userId)) {
             RankVo rankVoMe = new RankVo();
             rankVoMe.setName("我");
             rankVoMe.setIsMe(1);
@@ -63,10 +64,10 @@ public class RankService implements IRankService {
         return rankVoList;
     }
 
-    private boolean isInList(List<RankVo> rankVos,Integer userId){
+    private boolean isInList(List<RankVo> rankVos, Integer userId) {
         boolean isInList = false;
-        for (RankVo rankVo:rankVos){
-            if (rankVo.getUserId() == userId){
+        for (RankVo rankVo : rankVos) {
+            if (rankVo.getUserId() == userId) {
                 isInList = true;
                 break;
             }

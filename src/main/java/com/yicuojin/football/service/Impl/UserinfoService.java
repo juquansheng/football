@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class UserinfoService implements IUserinfoService {
     @Autowired
     private FootballUserMapper footballUserMapper;
     @Autowired
     private FootballAmountMapper footballAmountMapper;
+
     @Override
     public UserinfoVo getInfo(Integer userid) {
         UserinfoVo userinfoVo = new UserinfoVo();
@@ -25,7 +27,7 @@ public class UserinfoService implements IUserinfoService {
         FootballAmountExample footballAmountExample = new FootballAmountExample();
         footballAmountExample.createCriteria().andUseridEqualTo(userid);
         List<FootballAmount> footballAmounts = footballAmountMapper.selectByExample(footballAmountExample);
-        if (!ListUtils.isEmpty(footballAmounts)){
+        if (!ListUtils.isEmpty(footballAmounts)) {
             userinfoVo.setAmount(footballAmounts.get(0).getTotalamount());
         }
         userinfoVo.setNickname(footballUser.getNickname());

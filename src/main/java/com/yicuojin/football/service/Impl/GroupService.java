@@ -20,6 +20,7 @@ public class GroupService implements IGroupService {
     private FootballGroupMapper footballGroupMapper;
     @Autowired
     private FootballTeamInfoMapper footballTeamInfoMapper;
+
     @Override
     public List<GroupVo> getGroupVoList() {
         FootballGroupExample footballGroupExample = new FootballGroupExample();
@@ -27,7 +28,7 @@ public class GroupService implements IGroupService {
         List<FootballGroup> footballGroups = footballGroupMapper.selectByExample(footballGroupExample);
         List<GroupVo> groupVoList = Lists.newArrayList();
         //添加列表包含球队
-        for (FootballGroup footballGroup:footballGroups){
+        for (FootballGroup footballGroup : footballGroups) {
             GroupVo groupVo = new GroupVo();
             FootballTeamInfoExample footballTeamInfoExample = new FootballTeamInfoExample();
             footballTeamInfoExample.createCriteria().andGroupidEqualTo(footballGroup.getId()).andStatusNotEqualTo(-1);

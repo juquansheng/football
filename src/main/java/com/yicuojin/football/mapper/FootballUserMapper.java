@@ -2,7 +2,9 @@ package com.yicuojin.football.mapper;
 
 import com.yicuojin.football.dao.FootballUser;
 import com.yicuojin.football.dao.FootballUserExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface FootballUserMapper {

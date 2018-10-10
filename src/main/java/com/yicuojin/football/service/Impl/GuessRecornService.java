@@ -23,6 +23,7 @@ public class GuessRecornService implements IGuessRecornService {
     private FootballMatchMapper footballMatchMapper;
     @Autowired
     private FootballTeamInfoMapper footballTeamInfoMapper;
+
     @Override
     public List<GuessRecordVo> getRecordList(Integer userId) {
         FootballGuessRecordExample footballGuessRecordExample = new FootballGuessRecordExample();
@@ -31,7 +32,7 @@ public class GuessRecornService implements IGuessRecornService {
         List<FootballGuessRecord> footballGuessRecordList = footballGuessRecordMapper.selectByExample(footballGuessRecordExample);
         List<GuessRecordVo> guessRecordVoList = Lists.newArrayList();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        for (FootballGuessRecord footballGuessRecord:footballGuessRecordList){
+        for (FootballGuessRecord footballGuessRecord : footballGuessRecordList) {
             GuessRecordVo guessRecordVo = new GuessRecordVo();
             guessRecordVo.setCreatetime(format.format(footballGuessRecord.getCreatetime()));
             guessRecordVo.setUpdateTime(format.format(footballGuessRecord.getUpdatetime()));
@@ -52,11 +53,11 @@ public class GuessRecornService implements IGuessRecornService {
             guessRecordVo.setbFlag(footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeamb()).getImage());
             //用户猜测
             String userGuess = "";
-            if (footballGuessRecord.getUserguess() == 1){
-                userGuess = "您猜"+footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeama()).getName() + "胜";
-            }else if(footballGuessRecord.getUserguess() == 2){
-                userGuess = "您猜"+footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeamb()).getName() + "胜";
-            }else if (footballGuessRecord.getUserguess() == 3){
+            if (footballGuessRecord.getUserguess() == 1) {
+                userGuess = "您猜" + footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeama()).getName() + "胜";
+            } else if (footballGuessRecord.getUserguess() == 2) {
+                userGuess = "您猜" + footballTeamInfoMapper.selectByPrimaryKey(footballMatch.getTeamb()).getName() + "胜";
+            } else if (footballGuessRecord.getUserguess() == 3) {
                 userGuess = "您猜结果为平局";
             }
             /*//比赛结果
@@ -69,12 +70,12 @@ public class GuessRecornService implements IGuessRecornService {
                 result = "比赛结果为平局,";
             }*/
             String end = "";
-            if (footballGuessRecord.getMatchresult() == 1){
-                end = ",获得" + footballGuessRecord.getReward()+ "积分";
-            }else if (footballGuessRecord.getMatchresult() == 2){
+            if (footballGuessRecord.getMatchresult() == 1) {
+                end = ",获得" + footballGuessRecord.getReward() + "积分";
+            } else if (footballGuessRecord.getMatchresult() == 2) {
                 end = ",下次加油";
             }
-            guessRecordVo.setDescribe(userGuess +end);
+            guessRecordVo.setDescribe(userGuess + end);
             guessRecordVoList.add(guessRecordVo);
         }
 

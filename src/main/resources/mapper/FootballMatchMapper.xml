@@ -1,370 +1,374 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yicuojin.football.mapper.FootballMatchMapper" >
-  <resultMap id="BaseResultMap" type="com.yicuojin.football.dao.FootballMatch" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="TeamA" property="teama" jdbcType="INTEGER" />
-    <result column="TeamB" property="teamb" jdbcType="INTEGER" />
-    <result column="Prate" property="prate" jdbcType="DECIMAL" />
-    <result column="Brate" property="brate" jdbcType="DECIMAL" />
-    <result column="Arate" property="arate" jdbcType="DECIMAL" />
-    <result column="ScoreA" property="scorea" jdbcType="INTEGER" />
-    <result column="ScoreB" property="scoreb" jdbcType="INTEGER" />
-    <result column="result" property="result" jdbcType="INTEGER" />
-    <result column="type" property="type" jdbcType="INTEGER" />
-    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="UpteTime" property="uptetime" jdbcType="TIMESTAMP" />
-    <result column="StartTime" property="starttime" jdbcType="TIMESTAMP" />
-    <result column="EndTime" property="endtime" jdbcType="TIMESTAMP" />
-    <result column="addr" property="addr" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+<mapper namespace="com.yicuojin.football.mapper.FootballMatchMapper">
+    <resultMap id="BaseResultMap" type="com.yicuojin.football.dao.FootballMatch">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="TeamA" property="teama" jdbcType="INTEGER"/>
+        <result column="TeamB" property="teamb" jdbcType="INTEGER"/>
+        <result column="Prate" property="prate" jdbcType="DECIMAL"/>
+        <result column="Brate" property="brate" jdbcType="DECIMAL"/>
+        <result column="Arate" property="arate" jdbcType="DECIMAL"/>
+        <result column="ScoreA" property="scorea" jdbcType="INTEGER"/>
+        <result column="ScoreB" property="scoreb" jdbcType="INTEGER"/>
+        <result column="result" property="result" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="UpteTime" property="uptetime" jdbcType="TIMESTAMP"/>
+        <result column="StartTime" property="starttime" jdbcType="TIMESTAMP"/>
+        <result column="EndTime" property="endtime" jdbcType="TIMESTAMP"/>
+        <result column="addr" property="addr" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, TeamA, TeamB, Prate, Brate, Arate, ScoreA, ScoreB, result, type, CreateTime,
+        UpteTime, StartTime, EndTime, addr
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.yicuojin.football.dao.FootballMatchExample">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    id, TeamA, TeamB, Prate, Brate, Arate, ScoreA, ScoreB, result, type, CreateTime, 
-    UpteTime, StartTime, EndTime, addr
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yicuojin.football.dao.FootballMatchExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from football_match
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from football_match
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from football_match
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.yicuojin.football.dao.FootballMatchExample" >
-    delete from football_match
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.yicuojin.football.dao.FootballMatch" >
-    insert into football_match (id, TeamA, TeamB, 
-      Prate, Brate, Arate, 
-      ScoreA, ScoreB, result, 
-      type, CreateTime, UpteTime, 
-      StartTime, EndTime, addr
-      )
-    values (#{id,jdbcType=INTEGER}, #{teama,jdbcType=INTEGER}, #{teamb,jdbcType=INTEGER}, 
-      #{prate,jdbcType=DECIMAL}, #{brate,jdbcType=DECIMAL}, #{arate,jdbcType=DECIMAL}, 
-      #{scorea,jdbcType=INTEGER}, #{scoreb,jdbcType=INTEGER}, #{result,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{uptetime,jdbcType=TIMESTAMP}, 
-      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{addr,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.yicuojin.football.dao.FootballMatch" >
-    insert into football_match
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="teama != null" >
-        TeamA,
-      </if>
-      <if test="teamb != null" >
-        TeamB,
-      </if>
-      <if test="prate != null" >
-        Prate,
-      </if>
-      <if test="brate != null" >
-        Brate,
-      </if>
-      <if test="arate != null" >
-        Arate,
-      </if>
-      <if test="scorea != null" >
-        ScoreA,
-      </if>
-      <if test="scoreb != null" >
-        ScoreB,
-      </if>
-      <if test="result != null" >
-        result,
-      </if>
-      <if test="type != null" >
-        type,
-      </if>
-      <if test="createtime != null" >
-        CreateTime,
-      </if>
-      <if test="uptetime != null" >
-        UpteTime,
-      </if>
-      <if test="starttime != null" >
-        StartTime,
-      </if>
-      <if test="endtime != null" >
-        EndTime,
-      </if>
-      <if test="addr != null" >
-        addr,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="teama != null" >
-        #{teama,jdbcType=INTEGER},
-      </if>
-      <if test="teamb != null" >
-        #{teamb,jdbcType=INTEGER},
-      </if>
-      <if test="prate != null" >
-        #{prate,jdbcType=DECIMAL},
-      </if>
-      <if test="brate != null" >
-        #{brate,jdbcType=DECIMAL},
-      </if>
-      <if test="arate != null" >
-        #{arate,jdbcType=DECIMAL},
-      </if>
-      <if test="scorea != null" >
-        #{scorea,jdbcType=INTEGER},
-      </if>
-      <if test="scoreb != null" >
-        #{scoreb,jdbcType=INTEGER},
-      </if>
-      <if test="result != null" >
-        #{result,jdbcType=INTEGER},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="uptetime != null" >
-        #{uptetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="starttime != null" >
-        #{starttime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endtime != null" >
-        #{endtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="addr != null" >
-        #{addr,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.yicuojin.football.dao.FootballMatchExample" resultType="java.lang.Integer" >
-    select count(*) from football_match
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update football_match
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.teama != null" >
+        <include refid="Base_Column_List"/>
+        from football_match
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from football_match
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from football_match
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.yicuojin.football.dao.FootballMatchExample">
+        delete from football_match
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.yicuojin.football.dao.FootballMatch">
+        insert into football_match (id, TeamA, TeamB,
+        Prate, Brate, Arate,
+        ScoreA, ScoreB, result,
+        type, CreateTime, UpteTime,
+        StartTime, EndTime, addr
+        )
+        values (#{id,jdbcType=INTEGER}, #{teama,jdbcType=INTEGER}, #{teamb,jdbcType=INTEGER},
+        #{prate,jdbcType=DECIMAL}, #{brate,jdbcType=DECIMAL}, #{arate,jdbcType=DECIMAL},
+        #{scorea,jdbcType=INTEGER}, #{scoreb,jdbcType=INTEGER}, #{result,jdbcType=INTEGER},
+        #{type,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{uptetime,jdbcType=TIMESTAMP},
+        #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{addr,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.yicuojin.football.dao.FootballMatch">
+        insert into football_match
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="teama != null">
+                TeamA,
+            </if>
+            <if test="teamb != null">
+                TeamB,
+            </if>
+            <if test="prate != null">
+                Prate,
+            </if>
+            <if test="brate != null">
+                Brate,
+            </if>
+            <if test="arate != null">
+                Arate,
+            </if>
+            <if test="scorea != null">
+                ScoreA,
+            </if>
+            <if test="scoreb != null">
+                ScoreB,
+            </if>
+            <if test="result != null">
+                result,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="createtime != null">
+                CreateTime,
+            </if>
+            <if test="uptetime != null">
+                UpteTime,
+            </if>
+            <if test="starttime != null">
+                StartTime,
+            </if>
+            <if test="endtime != null">
+                EndTime,
+            </if>
+            <if test="addr != null">
+                addr,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="teama != null">
+                #{teama,jdbcType=INTEGER},
+            </if>
+            <if test="teamb != null">
+                #{teamb,jdbcType=INTEGER},
+            </if>
+            <if test="prate != null">
+                #{prate,jdbcType=DECIMAL},
+            </if>
+            <if test="brate != null">
+                #{brate,jdbcType=DECIMAL},
+            </if>
+            <if test="arate != null">
+                #{arate,jdbcType=DECIMAL},
+            </if>
+            <if test="scorea != null">
+                #{scorea,jdbcType=INTEGER},
+            </if>
+            <if test="scoreb != null">
+                #{scoreb,jdbcType=INTEGER},
+            </if>
+            <if test="result != null">
+                #{result,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uptetime != null">
+                #{uptetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="starttime != null">
+                #{starttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endtime != null">
+                #{endtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="addr != null">
+                #{addr,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.yicuojin.football.dao.FootballMatchExample"
+            resultType="java.lang.Integer">
+        select count(*) from football_match
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update football_match
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.teama != null">
+                TeamA = #{record.teama,jdbcType=INTEGER},
+            </if>
+            <if test="record.teamb != null">
+                TeamB = #{record.teamb,jdbcType=INTEGER},
+            </if>
+            <if test="record.prate != null">
+                Prate = #{record.prate,jdbcType=DECIMAL},
+            </if>
+            <if test="record.brate != null">
+                Brate = #{record.brate,jdbcType=DECIMAL},
+            </if>
+            <if test="record.arate != null">
+                Arate = #{record.arate,jdbcType=DECIMAL},
+            </if>
+            <if test="record.scorea != null">
+                ScoreA = #{record.scorea,jdbcType=INTEGER},
+            </if>
+            <if test="record.scoreb != null">
+                ScoreB = #{record.scoreb,jdbcType=INTEGER},
+            </if>
+            <if test="record.result != null">
+                result = #{record.result,jdbcType=INTEGER},
+            </if>
+            <if test="record.type != null">
+                type = #{record.type,jdbcType=INTEGER},
+            </if>
+            <if test="record.createtime != null">
+                CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.uptetime != null">
+                UpteTime = #{record.uptetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.starttime != null">
+                StartTime = #{record.starttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.endtime != null">
+                EndTime = #{record.endtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.addr != null">
+                addr = #{record.addr,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update football_match
+        set id = #{record.id,jdbcType=INTEGER},
         TeamA = #{record.teama,jdbcType=INTEGER},
-      </if>
-      <if test="record.teamb != null" >
         TeamB = #{record.teamb,jdbcType=INTEGER},
-      </if>
-      <if test="record.prate != null" >
         Prate = #{record.prate,jdbcType=DECIMAL},
-      </if>
-      <if test="record.brate != null" >
         Brate = #{record.brate,jdbcType=DECIMAL},
-      </if>
-      <if test="record.arate != null" >
         Arate = #{record.arate,jdbcType=DECIMAL},
-      </if>
-      <if test="record.scorea != null" >
         ScoreA = #{record.scorea,jdbcType=INTEGER},
-      </if>
-      <if test="record.scoreb != null" >
         ScoreB = #{record.scoreb,jdbcType=INTEGER},
-      </if>
-      <if test="record.result != null" >
         result = #{record.result,jdbcType=INTEGER},
-      </if>
-      <if test="record.type != null" >
         type = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.createtime != null" >
         CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.uptetime != null" >
         UpteTime = #{record.uptetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.starttime != null" >
         StartTime = #{record.starttime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.endtime != null" >
         EndTime = #{record.endtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.addr != null" >
-        addr = #{record.addr,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update football_match
-    set id = #{record.id,jdbcType=INTEGER},
-      TeamA = #{record.teama,jdbcType=INTEGER},
-      TeamB = #{record.teamb,jdbcType=INTEGER},
-      Prate = #{record.prate,jdbcType=DECIMAL},
-      Brate = #{record.brate,jdbcType=DECIMAL},
-      Arate = #{record.arate,jdbcType=DECIMAL},
-      ScoreA = #{record.scorea,jdbcType=INTEGER},
-      ScoreB = #{record.scoreb,jdbcType=INTEGER},
-      result = #{record.result,jdbcType=INTEGER},
-      type = #{record.type,jdbcType=INTEGER},
-      CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
-      UpteTime = #{record.uptetime,jdbcType=TIMESTAMP},
-      StartTime = #{record.starttime,jdbcType=TIMESTAMP},
-      EndTime = #{record.endtime,jdbcType=TIMESTAMP},
-      addr = #{record.addr,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yicuojin.football.dao.FootballMatch" >
-    update football_match
-    <set >
-      <if test="teama != null" >
-        TeamA = #{teama,jdbcType=INTEGER},
-      </if>
-      <if test="teamb != null" >
+        addr = #{record.addr,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yicuojin.football.dao.FootballMatch">
+        update football_match
+        <set>
+            <if test="teama != null">
+                TeamA = #{teama,jdbcType=INTEGER},
+            </if>
+            <if test="teamb != null">
+                TeamB = #{teamb,jdbcType=INTEGER},
+            </if>
+            <if test="prate != null">
+                Prate = #{prate,jdbcType=DECIMAL},
+            </if>
+            <if test="brate != null">
+                Brate = #{brate,jdbcType=DECIMAL},
+            </if>
+            <if test="arate != null">
+                Arate = #{arate,jdbcType=DECIMAL},
+            </if>
+            <if test="scorea != null">
+                ScoreA = #{scorea,jdbcType=INTEGER},
+            </if>
+            <if test="scoreb != null">
+                ScoreB = #{scoreb,jdbcType=INTEGER},
+            </if>
+            <if test="result != null">
+                result = #{result,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                CreateTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="uptetime != null">
+                UpteTime = #{uptetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="starttime != null">
+                StartTime = #{starttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endtime != null">
+                EndTime = #{endtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="addr != null">
+                addr = #{addr,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yicuojin.football.dao.FootballMatch">
+        update football_match
+        set TeamA = #{teama,jdbcType=INTEGER},
         TeamB = #{teamb,jdbcType=INTEGER},
-      </if>
-      <if test="prate != null" >
         Prate = #{prate,jdbcType=DECIMAL},
-      </if>
-      <if test="brate != null" >
         Brate = #{brate,jdbcType=DECIMAL},
-      </if>
-      <if test="arate != null" >
         Arate = #{arate,jdbcType=DECIMAL},
-      </if>
-      <if test="scorea != null" >
         ScoreA = #{scorea,jdbcType=INTEGER},
-      </if>
-      <if test="scoreb != null" >
         ScoreB = #{scoreb,jdbcType=INTEGER},
-      </if>
-      <if test="result != null" >
         result = #{result,jdbcType=INTEGER},
-      </if>
-      <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="createtime != null" >
         CreateTime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="uptetime != null" >
         UpteTime = #{uptetime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="starttime != null" >
         StartTime = #{starttime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endtime != null" >
         EndTime = #{endtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="addr != null" >
-        addr = #{addr,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yicuojin.football.dao.FootballMatch" >
-    update football_match
-    set TeamA = #{teama,jdbcType=INTEGER},
-      TeamB = #{teamb,jdbcType=INTEGER},
-      Prate = #{prate,jdbcType=DECIMAL},
-      Brate = #{brate,jdbcType=DECIMAL},
-      Arate = #{arate,jdbcType=DECIMAL},
-      ScoreA = #{scorea,jdbcType=INTEGER},
-      ScoreB = #{scoreb,jdbcType=INTEGER},
-      result = #{result,jdbcType=INTEGER},
-      type = #{type,jdbcType=INTEGER},
-      CreateTime = #{createtime,jdbcType=TIMESTAMP},
-      UpteTime = #{uptetime,jdbcType=TIMESTAMP},
-      StartTime = #{starttime,jdbcType=TIMESTAMP},
-      EndTime = #{endtime,jdbcType=TIMESTAMP},
-      addr = #{addr,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+        addr = #{addr,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

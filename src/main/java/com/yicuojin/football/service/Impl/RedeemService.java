@@ -23,8 +23,11 @@ public class RedeemService implements IRedeemService {
     private FootballRedeemGoodsMapper footballRedeemGoodsMapper;
     @Autowired
     private FootballRedeemItemMapper footballRedeemItemMapper;
+    @Autowired
+    private FootballAmountRecordMapper footballAmountRecordMapper;
+
     @Override
-    public String generateRedeemCode(Integer userId,Integer redeemGoodsId,BigDecimal appAccount) {
+    public String generateRedeemCode(Integer userId, Integer redeemGoodsId, BigDecimal appAccount) {
 
         //判断用户兑换余额是否不足
         FootballAmountExample footballAmountExample = new FootballAmountExample();
@@ -32,7 +35,7 @@ public class RedeemService implements IRedeemService {
         List<FootballAmount> footballAmountList = footballAmountMapper.selectByExample(footballAmountExample);
         FootballRedeemGoods footballRedeemGoods = footballRedeemGoodsMapper.selectByPrimaryKey(redeemGoodsId);
         if (footballAmountList.size() > 0 && footballRedeemGoods != null &&
-                footballAmountList.get(0).getTotalamount().compareTo(appAccount.multiply(footballRedeemGoods.getPrice())) >= 0){
+                footballAmountList.get(0).getTotalamount().compareTo(appAccount.multiply(footballRedeemGoods.getPrice())) >= 0) {
             FootballRedeemCode footballRedeemCode = new FootballRedeemCode();
             String uuidRandom = UUID.randomUUID().toString().replace("-", "");
 
@@ -42,17 +45,25 @@ public class RedeemService implements IRedeemService {
             footballRedeemCode.setUserid(userId);
             footballRedeemCode.setCreatetime(new Date());
             boolean b = footballRedeemCodeMapper.insertSelective(footballRedeemCode) > 0;
-            if (b){
+            if (b) {
                 //用户减少相应的积分
                 BigDecimal sub = appAccount.multiply(footballRedeemGoods.getPrice());
                 FootballAmount amount = footballAmountList.get(0);
                 amount.setTotalamount(amount.getTotalamount().subtract(sub));
                 footballAmountMapper.updateByPrimaryKeySelective(amount);
+                //添加积分使用记录
+                FootballAmountRecord footballAmountRecord = new FootballAmountRecord();
+                footballAmountRecord.setAmount(sub);
+                footballAmountRecord.setCreatetime(new Date());
+                footballAmountRecord.setUserid(userId);
+                footballAmountRecord.setType(4);
+                footballAmountRecord.setStatus(1);
+                footballAmountRecordMapper.insertSelective(footballAmountRecord);
                 return uuidRandom;
-            }else {
+            } else {
                 return null;
             }
-        }else {
+        } else {
             return null;
         }
 
@@ -62,8 +73,7 @@ public class RedeemService implements IRedeemService {
     public List<FootballRedeemCode> getRecord(Integer userid) {
         FootballRedeemCodeExample footballRedeemCodeExample = new FootballRedeemCodeExample();
         footballRedeemCodeExample.createCriteria().andUseridEqualTo(userid).andStatusNotEqualTo(-1);
-        List<FootballRedeemCode> footballRedeemCodes = footballRedeemCodeMapper.selectByExample(footballRedeemCodeExample);
-        return footballRedeemCodes;
+        return footballRedeemCodeMapper.selectByExample(footballRedeemCodeExample);
     }
 
     @Override

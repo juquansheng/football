@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 public class ParamService implements IParamService {
     @Autowired
     private FootballBallParamMapper footballBallParamMapper;
+
     @Override
     public String getParam(Integer id) {
         FootballBallParam footballBallParam = footballBallParamMapper.selectByPrimaryKey(id);
-        if (footballBallParam != null && id > 2){
+        if (footballBallParam != null && id > 2) {
             return footballBallParam.getValue();
-        }else {
+        } else {
             return null;
         }
     }

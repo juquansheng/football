@@ -14,6 +14,7 @@ public class PlayerController {
 
     @Autowired
     private IPlayerService playerService;
+
     @RequestMapping(value = "getPlayInfo", method = RequestMethod.GET)
     @ResponseBody
     public YCJResult getMatch(@RequestParam("id") Integer id) {

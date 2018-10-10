@@ -7,6 +7,7 @@ public class DateUtils {
 
     /**
      * 获取今天开始时间
+     *
      * @return
      */
     public static Date getStartTime() {
@@ -20,6 +21,7 @@ public class DateUtils {
 
     /**
      * 获取今天结束时间
+     *
      * @return
      */
     public static Date getEndTime() {
@@ -30,8 +32,10 @@ public class DateUtils {
         todayEnd.set(Calendar.MILLISECOND, 999);
         return todayEnd.getTime();
     }
+
     /**
      * 获取昨天开始时间
+     *
      * @return
      */
     public static Date getYestodayStartTime() {

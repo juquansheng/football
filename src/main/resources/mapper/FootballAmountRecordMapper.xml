@@ -1,228 +1,232 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yicuojin.football.mapper.FootballAmountRecordMapper" >
-  <resultMap id="BaseResultMap" type="com.yicuojin.football.dao.FootballAmountRecord" >
-    <id column="Id" property="id" jdbcType="INTEGER" />
-    <result column="UserId" property="userid" jdbcType="INTEGER" />
-    <result column="Amount" property="amount" jdbcType="DECIMAL" />
-    <result column="Type" property="type" jdbcType="INTEGER" />
-    <result column="Status" property="status" jdbcType="INTEGER" />
-    <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+<mapper namespace="com.yicuojin.football.mapper.FootballAmountRecordMapper">
+    <resultMap id="BaseResultMap" type="com.yicuojin.football.dao.FootballAmountRecord">
+        <id column="Id" property="id" jdbcType="INTEGER"/>
+        <result column="UserId" property="userid" jdbcType="INTEGER"/>
+        <result column="Amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="Type" property="type" jdbcType="INTEGER"/>
+        <result column="Status" property="status" jdbcType="INTEGER"/>
+        <result column="CreateTime" property="createtime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        Id, UserId, Amount, Type, Status, CreateTime
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.yicuojin.football.dao.FootballAmountRecordExample">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    Id, UserId, Amount, Type, Status, CreateTime
-  </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yicuojin.football.dao.FootballAmountRecordExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from football_amount_record
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from football_amount_record
-    where Id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from football_amount_record
-    where Id = #{id,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.yicuojin.football.dao.FootballAmountRecordExample" >
-    delete from football_amount_record
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.yicuojin.football.dao.FootballAmountRecord" >
-    insert into football_amount_record (Id, UserId, Amount, 
-      Type, Status, CreateTime
-      )
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL}, 
-      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.yicuojin.football.dao.FootballAmountRecord" >
-    insert into football_amount_record
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        Id,
-      </if>
-      <if test="userid != null" >
-        UserId,
-      </if>
-      <if test="amount != null" >
-        Amount,
-      </if>
-      <if test="type != null" >
-        Type,
-      </if>
-      <if test="status != null" >
-        Status,
-      </if>
-      <if test="createtime != null" >
-        CreateTime,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userid != null" >
-        #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="amount != null" >
-        #{amount,jdbcType=DECIMAL},
-      </if>
-      <if test="type != null" >
-        #{type,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.yicuojin.football.dao.FootballAmountRecordExample" resultType="java.lang.Integer" >
-    select count(*) from football_amount_record
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update football_amount_record
-    <set >
-      <if test="record.id != null" >
-        Id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.userid != null" >
+        <include refid="Base_Column_List"/>
+        from football_amount_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from football_amount_record
+        where Id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from football_amount_record
+        where Id = #{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.yicuojin.football.dao.FootballAmountRecordExample">
+        delete from football_amount_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.yicuojin.football.dao.FootballAmountRecord">
+        insert into football_amount_record (Id, UserId, Amount,
+        Type, Status, CreateTime
+        )
+        values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{amount,jdbcType=DECIMAL},
+        #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.yicuojin.football.dao.FootballAmountRecord">
+        insert into football_amount_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                Id,
+            </if>
+            <if test="userid != null">
+                UserId,
+            </if>
+            <if test="amount != null">
+                Amount,
+            </if>
+            <if test="type != null">
+                Type,
+            </if>
+            <if test="status != null">
+                Status,
+            </if>
+            <if test="createtime != null">
+                CreateTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.yicuojin.football.dao.FootballAmountRecordExample"
+            resultType="java.lang.Integer">
+        select count(*) from football_amount_record
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update football_amount_record
+        <set>
+            <if test="record.id != null">
+                Id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.userid != null">
+                UserId = #{record.userid,jdbcType=INTEGER},
+            </if>
+            <if test="record.amount != null">
+                Amount = #{record.amount,jdbcType=DECIMAL},
+            </if>
+            <if test="record.type != null">
+                Type = #{record.type,jdbcType=INTEGER},
+            </if>
+            <if test="record.status != null">
+                Status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.createtime != null">
+                CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update football_amount_record
+        set Id = #{record.id,jdbcType=INTEGER},
         UserId = #{record.userid,jdbcType=INTEGER},
-      </if>
-      <if test="record.amount != null" >
         Amount = #{record.amount,jdbcType=DECIMAL},
-      </if>
-      <if test="record.type != null" >
         Type = #{record.type,jdbcType=INTEGER},
-      </if>
-      <if test="record.status != null" >
         Status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.createtime != null" >
-        CreateTime = #{record.createtime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update football_amount_record
-    set Id = #{record.id,jdbcType=INTEGER},
-      UserId = #{record.userid,jdbcType=INTEGER},
-      Amount = #{record.amount,jdbcType=DECIMAL},
-      Type = #{record.type,jdbcType=INTEGER},
-      Status = #{record.status,jdbcType=INTEGER},
-      CreateTime = #{record.createtime,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.yicuojin.football.dao.FootballAmountRecord" >
-    update football_amount_record
-    <set >
-      <if test="userid != null" >
-        UserId = #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="amount != null" >
+        CreateTime = #{record.createtime,jdbcType=TIMESTAMP}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yicuojin.football.dao.FootballAmountRecord">
+        update football_amount_record
+        <set>
+            <if test="userid != null">
+                UserId = #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                Amount = #{amount,jdbcType=DECIMAL},
+            </if>
+            <if test="type != null">
+                Type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                Status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createtime != null">
+                CreateTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yicuojin.football.dao.FootballAmountRecord">
+        update football_amount_record
+        set UserId = #{userid,jdbcType=INTEGER},
         Amount = #{amount,jdbcType=DECIMAL},
-      </if>
-      <if test="type != null" >
         Type = #{type,jdbcType=INTEGER},
-      </if>
-      <if test="status != null" >
         Status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="createtime != null" >
-        CreateTime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where Id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.yicuojin.football.dao.FootballAmountRecord" >
-    update football_amount_record
-    set UserId = #{userid,jdbcType=INTEGER},
-      Amount = #{amount,jdbcType=DECIMAL},
-      Type = #{type,jdbcType=INTEGER},
-      Status = #{status,jdbcType=INTEGER},
-      CreateTime = #{createtime,jdbcType=TIMESTAMP}
-    where Id = #{id,jdbcType=INTEGER}
-  </update>
+        CreateTime = #{createtime,jdbcType=TIMESTAMP}
+        where Id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

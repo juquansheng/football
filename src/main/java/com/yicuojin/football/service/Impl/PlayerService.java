@@ -16,13 +16,14 @@ import java.util.List;
 public class PlayerService implements IPlayerService {
     @Autowired
     private FootballPlayerInfoMapper footballPlayerInfoMapper;
+
     @Override
     public PlayerInfoVo getInfoById(Integer id) {
         PlayerInfoVo playerInfoVo = new PlayerInfoVo();
         FootballPlayerInfo footballPlayerInfo = footballPlayerInfoMapper.selectByPrimaryKey(id);
         footballPlayerInfo.setImg("https://tjb.yunxinyong.net/football-0.0.1-SNAPSHOT/image/" + footballPlayerInfo.getImg() + ".png");
         footballPlayerInfo.setData("https://tjb.yunxinyong.net/football-0.0.1-SNAPSHOT/image/" + footballPlayerInfo.getData() + ".png");
-        BeanUtils.copyProperties(footballPlayerInfo,playerInfoVo);
+        BeanUtils.copyProperties(footballPlayerInfo, playerInfoVo);
         String playerdescribe = footballPlayerInfo.getPlayerdescribe();
         String[] split = playerdescribe.split("、");
         List<String> b = Lists.newArrayList();

@@ -15,13 +15,13 @@ public class ParamController {
     @Autowired
     private IParamService paramService;
 
-    @RequestMapping(value = "/getParam",method = RequestMethod.GET)
-    public YCJResult getParam(@RequestParam("id") Integer id){
+    @RequestMapping(value = "/getParam", method = RequestMethod.GET)
+    public YCJResult getParam(@RequestParam("id") Integer id) {
         String param = paramService.getParam(id);
-        if (param != null){
-            return YCJResult.build(200,"获取参数成功",param);
-        }else {
-            return YCJResult.build(505,"参数不存在",null);
+        if (param != null) {
+            return YCJResult.build(200, "获取参数成功", param);
+        } else {
+            return YCJResult.build(505, "参数不存在", null);
         }
     }
 }

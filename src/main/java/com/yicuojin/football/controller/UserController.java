@@ -37,6 +37,7 @@ public class UserController {
 
     /**
      * 竞猜记录
+     *
      * @param userId
      * @return
      */
@@ -49,21 +50,22 @@ public class UserController {
 
     /**
      * 排行
+     *
      * @return
      */
     @RequestMapping(value = "rank", method = RequestMethod.GET)
     @ResponseBody
-    public YCJResult getRank(@RequestParam("userId") Integer userId){
+    public YCJResult getRank(@RequestParam("userId") Integer userId) {
 
-        if (userId > 0){
+        if (userId > 0) {
             List<RankVo> rankList = rankService.getRankList(userId);
-            if (!ListUtils.isEmpty(rankList)){
+            if (!ListUtils.isEmpty(rankList)) {
                 return YCJResult.build(200, "获取成功", rankList);
-            }else {
+            } else {
                 return YCJResult.build(505, "获取失败", null);
             }
 
-        }else {
+        } else {
             return YCJResult.build(505, "获取失败", null);
         }
     }

@@ -7,6 +7,7 @@ import java.util.List;
 public interface IGroupService {
     /**
      * 获取分组列表信息
+     *
      * @return
      */
     List<GroupVo> getGroupVoList();

@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 @Service
 public class SignService implements ISignService {
     @Autowired
@@ -27,23 +28,25 @@ public class SignService implements ISignService {
     private FootballBallParamMapper footballBallParamMapper;
     @Autowired
     private FootballAmountMapper footballAmountMapper;
+
     /**
      * 用户首次登陆送金币
+     *
      * @param userId
      * @return
      */
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public boolean firstSign(Integer userId) {
-        if (userId == 0){
+        if (userId == 0) {
             return false;
-        }else {
+        } else {
             //查询用户今天是不是首次登陆
             FootballSignExample footballSignExample = new FootballSignExample();
-            footballSignExample.createCriteria().andDateBetween(DateUtils.getStartTime(),DateUtils.getEndTime()).andUseridEqualTo(userId);
+            footballSignExample.createCriteria().andDateBetween(DateUtils.getStartTime(), DateUtils.getEndTime()).andUseridEqualTo(userId);
             List<FootballSign> footballSigns = footballSignMapper.selectByExample(footballSignExample);
 
-            if (ListUtils.isEmpty(footballSigns)){
+            if (ListUtils.isEmpty(footballSigns)) {
                 //添加签到记录
                 FootballSign footballSign = new FootballSign();
                 footballSign.setUserid(userId);
@@ -54,17 +57,17 @@ public class SignService implements ISignService {
                 FootballAmountExample footballAmountExample = new FootballAmountExample();
                 footballAmountExample.createCriteria().andUseridEqualTo(userId);
                 List<FootballAmount> footballAmounts = footballAmountMapper.selectByExample(footballAmountExample);
-                if (!ListUtils.isEmpty(footballAmounts)){
+                if (!ListUtils.isEmpty(footballAmounts)) {
                     FootballAmount footballAmount = footballAmounts.get(0);
                     BigDecimal totalamount = footballAmount.getTotalamount();
                     footballAmount.setUpdatetime(new Date());
                     footballAmount.setTotalamount(totalamount.add(new BigDecimal(footballBallParamMapper.selectByPrimaryKey(3).getValue())));
                     return footballAmountMapper.updateByPrimaryKeySelective(footballAmount) > 0;
-                }else {
-                    return  false;
+                } else {
+                    return false;
                 }
 
-            }else {
+            } else {
                 return false;
             }
         }

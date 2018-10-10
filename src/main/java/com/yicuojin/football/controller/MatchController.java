@@ -30,12 +30,13 @@ public class MatchController {
     private FootballBallParamMapper footballBallParamMapper;
     @Autowired
     private IUserAmountService userAmountService;
+
     @RequestMapping(value = "/choice", method = RequestMethod.GET)
     @ResponseBody
     public YCJResult choice(@RequestParam("userId") Integer userId, @RequestParam("matchId") Integer matchId,
-                                 @RequestParam("userGuess") Integer userGuess,@RequestParam(value = "bet",required = false) Integer bet) {
+                            @RequestParam("userGuess") Integer userGuess, @RequestParam(value = "bet", required = false) Integer bet) {
 
-        boolean b = matchService.userChoice(userId, matchId, userGuess,new BigDecimal(bet));
+        boolean b = matchService.userChoice(userId, matchId, userGuess, new BigDecimal(bet));
         if (b) {
             return YCJResult.build(200, "下注成功", true);
         } else {
@@ -55,9 +56,9 @@ public class MatchController {
         matchResponseVo.setFootballMessageList(messageByUserId);
         matchResponseVo.setMatchInfoVoList(userMatchList);
         matchResponseVo.setSignCoin(Integer.parseInt(footballBallParamMapper.selectByPrimaryKey(3).getValue()));
-        if (ListUtils.isEmpty(messageByUserId)){
+        if (ListUtils.isEmpty(messageByUserId)) {
             matchResponseVo.setMessageNotNull(false);
-        }else {
+        } else {
             matchResponseVo.setMessageNotNull(true);
         }
         matchResponseVo.setTotalAmount(userAmountService.getUserAmount(userId));
@@ -69,8 +70,8 @@ public class MatchController {
     @ResponseBody
     public YCJResult test() {
 
-            matchService.Settlement1();
-            return YCJResult.build(200, "成功", null);
+        matchService.Settlement1();
+        return YCJResult.build(200, "成功", null);
 
     }
 }

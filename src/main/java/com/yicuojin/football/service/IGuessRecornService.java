@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface IGuessRecornService {
     /**
-     *获取下注列表
+     * 获取下注列表
+     *
      * @param userId
      * @return
      */

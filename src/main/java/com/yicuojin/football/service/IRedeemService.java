@@ -10,15 +10,17 @@ import java.util.List;
 public interface IRedeemService {
     /**
      * 生成兑换码
+     *
      * @param userid
      * @param redeemGoodsId
      * @param appaccount
      * @return
      */
-    String generateRedeemCode(Integer userid,Integer redeemGoodsId,BigDecimal appaccount);
+    String generateRedeemCode(Integer userid, Integer redeemGoodsId, BigDecimal appaccount);
 
     /**
      * 兑换记录
+     *
      * @param userid
      * @return
      */
@@ -26,6 +28,7 @@ public interface IRedeemService {
 
     /**
      * 根据兑换项目获取商品列表
+     *
      * @param itemId
      * @return
      */
@@ -33,6 +36,7 @@ public interface IRedeemService {
 
     /**
      * 获取兑换项目列表
+     *
      * @return
      */
     List<FootballRedeemItem> getRedeemList();

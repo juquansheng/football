@@ -34,6 +34,7 @@ public class WxService implements IWxService {
     @Autowired
     private FootballAmountMapper footballAmountMapper;
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public FootballUser getAndSaveResultByCode(String code) {
@@ -48,21 +49,21 @@ public class WxService implements IWxService {
                 String APPID = footballBallParamMapper.selectByPrimaryKey(2).getValue();
                 String SECRET = footballBallParamMapper.selectByPrimaryKey(1).getValue();
                 // URL
-                String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + APPID + "&secret=" + SECRET+ "&js_code=" + code
+                String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + APPID + "&secret=" + SECRET + "&js_code=" + code
                         + "&grant_type=authorization_code";
-                String codeResul = YCJHTTPUtils.getHttp(url,"utf-8");
+                String codeResul = YCJHTTPUtils.getHttp(url, "utf-8");
                 JSONObject jsonObj = JSON.parseObject(codeResul);
-                if (jsonObj.getString("openid") == null){
+                if (jsonObj.getString("openid") == null) {
                     return footballUser;
                 }
                 FootballUserExample footballUserExampletest = new FootballUserExample();
                 footballUserExampletest.createCriteria().andOpenidEqualTo(jsonObj.getString("openid"));
                 List<FootballUser> footballUserstest = footballUserMapper.selectByExample(footballUserExampletest);
                 //判断用户是否存在
-                if (!ListUtils.isEmpty(footballUserstest)){
+                if (!ListUtils.isEmpty(footballUserstest)) {
                     footballUser.setWeixinid(footballUserstest.get(0).getWeixinid());
-                }else {
-                    if (jsonObj.getString("unionid") != null){
+                } else {
+                    if (jsonObj.getString("unionid") != null) {
                         wxCodeResultVo.setUnionid(jsonObj.getString("unionid"));
                         wxCodeResultVo.setOpenid(jsonObj.getString("openid"));
                         wxCodeResultVo.setSessionKey(jsonObj.getString("session_key"));
@@ -77,10 +78,10 @@ public class WxService implements IWxService {
                         FootballUserExample footballUserExample = new FootballUserExample();
                         footballUserExample.createCriteria().andOpenidEqualTo(footballUser.getOpenid());
                         List<FootballUser> footballUsers = footballUserMapper.selectByExample(footballUserExample);
-                        if (!ListUtils.isEmpty(footballUsers)){
+                        if (!ListUtils.isEmpty(footballUsers)) {
                             footballUser.setWeixinid(footballUsers.get(0).getWeixinid());
                         }
-                    }else if (jsonObj.getString("openid") == null){
+                    } else if (jsonObj.getString("openid") == null) {
 
                         wxCodeResultVo.setOpenid(jsonObj.getString("openid"));
                         wxCodeResultVo.setSessionKey(jsonObj.getString("session_key"));
@@ -94,10 +95,10 @@ public class WxService implements IWxService {
                         FootballUserExample footballUserExample = new FootballUserExample();
                         footballUserExample.createCriteria().andOpenidEqualTo(footballUser.getOpenid());
                         List<FootballUser> footballUsers = footballUserMapper.selectByExample(footballUserExample);
-                        if (!ListUtils.isEmpty(footballUsers)){
+                        if (!ListUtils.isEmpty(footballUsers)) {
                             footballUser.setWeixinid(footballUsers.get(0).getWeixinid());
                         }
-                    }else {
+                    } else {
                         wxCodeResultVo.setErrcode(jsonObj.getString("errcode"));
                         wxCodeResultVo.setErrmsg(jsonObj.getString("errmsg"));
                     }
@@ -119,7 +120,7 @@ public class WxService implements IWxService {
 
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-    public void getAndSaveUserInfo(String userInfo,Integer weixinid) {
+    public void getAndSaveUserInfo(String userInfo, Integer weixinid) {
         try {
             if (userInfo == null || userInfo == "") {
                 // userInfo 是空的！

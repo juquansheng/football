@@ -151,7 +151,6 @@ public class MatchInfoVo {
     }
 
 
-
     public Integer getScorea() {
         return scorea;
     }

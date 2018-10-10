@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class RewardController {
     @Autowired
     private IPlayerService playerService;
+
     @RequestMapping(value = "/send", method = RequestMethod.GET)
     @ResponseBody
     public YCJResult getMatch(@RequestParam("id") Integer id) {

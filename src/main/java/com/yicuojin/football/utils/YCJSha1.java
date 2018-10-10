@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class YCJSha1 {
-    public static String SHA1(String str){
+    public static String SHA1(String str) {
         try {
             //指定sha1算法
             MessageDigest digest = MessageDigest.getInstance("SHA-1");

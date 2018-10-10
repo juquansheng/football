@@ -16,9 +16,9 @@ public class GroupController {
 
     @RequestMapping(value = "/groupList", method = RequestMethod.GET)
     @ResponseBody
-    public YCJResult groupVoList(@RequestParam(value = "userId",required = false) Integer userId) {
+    public YCJResult groupVoList(@RequestParam(value = "userId", required = false) Integer userId) {
         List<GroupVo> groupVoList = groupService.getGroupVoList();
-        if (userId != null){
+        if (userId != null) {
             //添加进入咨询页面记录
         }
         return YCJResult.build(200, "获取成功", groupVoList);

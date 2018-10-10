@@ -37,14 +37,15 @@ public class MatchService implements IMatchService {
     @Autowired
     private FootballAmountRecordMapper footballAmountRecordMapper;
     private Logger logger = Logger.getLogger(MatchService.class);
+
     @Override
     public List<MatchInfoVo> getUserMatchList(Integer userID) {
         FootballMatchExample footballMatchExample = new FootballMatchExample();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        footballMatchExample.createCriteria().andResultBetween(0,0);
+        footballMatchExample.createCriteria().andResultBetween(0, 0);
         List<FootballMatch> footballMatches = footballMatchMapper.selectByExample(footballMatchExample);
         List<MatchInfoVo> matchInfoVoList = Lists.newArrayList();
-        for (FootballMatch footballMatch:footballMatches){
+        for (FootballMatch footballMatch : footballMatches) {
             MatchInfoVo matchInfoVo = new MatchInfoVo();
 
             FootballGuessRecordExample guessRecordExampleA = new FootballGuessRecordExample();
@@ -76,9 +77,9 @@ public class MatchService implements IMatchService {
             FootballGuessRecordExample footballGuessRecordExample = new FootballGuessRecordExample();
             footballGuessRecordExample.createCriteria().andMatchidEqualTo(footballMatch.getId()).andUseridEqualTo(userID);
             List<FootballGuessRecord> footballGuessRecords = footballGuessRecordMapper.selectByExample(footballGuessRecordExample);
-            if (!ListUtils.isEmpty(footballGuessRecords)){
+            if (!ListUtils.isEmpty(footballGuessRecords)) {
                 matchInfoVo.setChoice(footballGuessRecords.get(0).getUserguess());
-            }else {
+            } else {
                 matchInfoVo.setChoice(0);
             }
             matchInfoVoList.add(matchInfoVo);
@@ -89,37 +90,38 @@ public class MatchService implements IMatchService {
 
     /**
      * 结算（手动确定）
+     *
      * @return
      */
     @Override
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public boolean Settlement(Integer id) {
         FootballMatch footballMatch = footballMatchMapper.selectByPrimaryKey(id);
-        if (footballMatch.getResult() ==1 ||footballMatch.getResult() ==2 || footballMatch.getResult() ==3){
+        if (footballMatch.getResult() == 1 || footballMatch.getResult() == 2 || footballMatch.getResult() == 3) {
             //查询所有下注金额
             FootballGuessRecordExample footballGuessRecordExample = new FootballGuessRecordExample();
             footballGuessRecordExample.createCriteria().andMatchidEqualTo(id);
             BigDecimal count = footballGuessRecordMapper.countBetsByExample(footballGuessRecordExample);
 
             //判断是否有人竞猜
-            if (count != null){
+            if (count != null) {
                 //查询猜对金额并添加奖励
                 FootballGuessRecordExample footballGuessRecordExampleWin = new FootballGuessRecordExample();
                 footballGuessRecordExampleWin.createCriteria().andMatchidEqualTo(id).andUserguessEqualTo(footballMatch.getResult());
                 BigDecimal countWin = footballGuessRecordMapper.countBetsByExample(footballGuessRecordExampleWin);
                 System.out.println(countWin);
                 //猜对每份奖励
-                BigDecimal reward = count.divide(countWin,BigDecimal.ROUND_HALF_UP);
+                BigDecimal reward = count.divide(countWin, BigDecimal.ROUND_HALF_UP);
                 List<FootballGuessRecord> footballGuessRecordList = footballGuessRecordMapper.selectByExample(footballGuessRecordExampleWin);
                 List<FootballGuessRecord> footballGuessRecordListWin = footballGuessRecordMapper.selectByExample(footballGuessRecordExampleWin);
                 //每条记录添加奖金和消息推送记录
-                if (!ListUtils.isEmpty(footballGuessRecordListWin)){
-                    for (FootballGuessRecord footballGuessRecord:footballGuessRecordList){
+                if (!ListUtils.isEmpty(footballGuessRecordListWin)) {
+                    for (FootballGuessRecord footballGuessRecord : footballGuessRecordList) {
                         //查询用户金币表
                         FootballAmountExample footballAmountExample = new FootballAmountExample();
                         footballAmountExample.createCriteria().andUseridEqualTo(footballGuessRecord.getUserid());
                         List<FootballAmount> footballAmountList = footballAmountMapper.selectByExample(footballAmountExample);
-                        if (!ListUtils.isEmpty(footballAmountList)){
+                        if (!ListUtils.isEmpty(footballAmountList)) {
                             //更新用户金币表(根据每条记录)
                             FootballAmount footballAmount = footballAmountList.get(0);
                             BigDecimal totalamount = footballAmount.getTotalamount();
@@ -131,7 +133,7 @@ public class MatchService implements IMatchService {
                         footballMessage.setCreatetime(new Date());
                         footballMessage.setUpdatetime(new Date());
                         footballMessage.setUserid(footballGuessRecord.getUserid());
-                        footballMessage.setContent("您竞猜的比赛id为"+footballGuessRecord.getMatchid() + "的比赛获得了"+ reward.multiply(footballGuessRecord.getBets())+"金币");
+                        footballMessage.setContent("您竞猜的比赛id为" + footballGuessRecord.getMatchid() + "的比赛获得了" + reward.multiply(footballGuessRecord.getBets()) + "金币");
                         footballMessageMapper.insertSelective(footballMessage);
                         //更新用户竞猜记录表
                         footballGuessRecord.setMatchresult(1);
@@ -143,14 +145,14 @@ public class MatchService implements IMatchService {
                 FootballGuessRecordExample footballGuessRecordExampleOther = new FootballGuessRecordExample();
                 footballGuessRecordExampleOther.createCriteria().andMatchidEqualTo(id).andUserguessNotEqualTo(footballMatch.getResult());
                 List<FootballGuessRecord> footballGuessRecordListOther = footballGuessRecordMapper.selectByExample(footballGuessRecordExampleOther);
-                if (!ListUtils.isEmpty(footballGuessRecordListOther)){
-                    for (FootballGuessRecord footballGuessRecord:footballGuessRecordListOther){
+                if (!ListUtils.isEmpty(footballGuessRecordListOther)) {
+                    for (FootballGuessRecord footballGuessRecord : footballGuessRecordListOther) {
                         //添加用户推送消息记录
                         FootballMessage footballMessage = new FootballMessage();
                         footballMessage.setCreatetime(new Date());
                         footballMessage.setUpdatetime(new Date());
                         footballMessage.setUserid(footballGuessRecord.getUserid());
-                        footballMessage.setContent("您竞猜的比赛id为"+footballGuessRecord.getMatchid() + "的比赛未猜对");
+                        footballMessage.setContent("您竞猜的比赛id为" + footballGuessRecord.getMatchid() + "的比赛未猜对");
                         footballMessageMapper.insertSelective(footballMessage);
                         //更新用户竞猜记录表
                         footballGuessRecord.setMatchresult(2);
@@ -174,7 +176,6 @@ public class MatchService implements IMatchService {
                 BigDecimal countC = footballGuessRecordMapper.countBetsByExample(footballGuessRecordExampleC);
 
 
-
                 //添加比赛经历记录表
                 FootballMatchReward footballMatchReward = new FootballMatchReward();
                 footballMatchReward.setAacount(countA);
@@ -188,8 +189,8 @@ public class MatchService implements IMatchService {
                 FootballMatch footballMatchUpdate = new FootballMatch();
                 footballMatchUpdate.setId(footballMatch.getId());
                 footballMatchUpdate.setResult(5);
-                return footballMatchMapper.updateByPrimaryKeySelective(footballMatchUpdate)>0;
-            }else {
+                return footballMatchMapper.updateByPrimaryKeySelective(footballMatchUpdate) > 0;
+            } else {
                 //查询猜A金额
                 FootballGuessRecordExample footballGuessRecordExampleA = new FootballGuessRecordExample();
                 footballGuessRecordExampleA.createCriteria().andMatchidEqualTo(footballMatch.getId()).andUserguessEqualTo(1);
@@ -202,7 +203,6 @@ public class MatchService implements IMatchService {
                 FootballGuessRecordExample footballGuessRecordExampleC = new FootballGuessRecordExample();
                 footballGuessRecordExampleC.createCriteria().andMatchidEqualTo(footballMatch.getId()).andUserguessEqualTo(3);
                 BigDecimal countC = footballGuessRecordMapper.countBetsByExample(footballGuessRecordExampleC);
-
 
 
                 //添加比赛经历记录表
@@ -220,7 +220,7 @@ public class MatchService implements IMatchService {
                 footballMatchMapper.updateByPrimaryKeySelective(footballMatchUpdate);
                 return false;
             }
-        }else {
+        } else {
             return false;
         }
 
@@ -239,31 +239,31 @@ public class MatchService implements IMatchService {
             footballMatchExample.createCriteria().andResultEqualTo(0);
             List<FootballMatch> footballMatches = footballMatchMapper.selectByExample(footballMatchExample);
             Date now = new Date();
-            if (!ListUtils.isEmpty(footballMatches)){
-                for (FootballMatch footballMatch:footballMatches){
+            if (!ListUtils.isEmpty(footballMatches)) {
+                for (FootballMatch footballMatch : footballMatches) {
                     //判断比赛是否开始,如果开始修改比赛状态为4
                     Date starttime = footballMatch.getStarttime();
-                    if (now.getTime() > starttime.getTime()){
+                    if (now.getTime() > starttime.getTime()) {
                         result = true;
                         footballMatch.setResult(4);
                         footballMatch.setCreatetime(null);
                         int i = footballMatchMapper.updateByPrimaryKeySelective(footballMatch);
-                        if (i == 0){
-                            logger.info("修改"+footballMatch.getId()+"比赛状态失败");
+                        if (i == 0) {
+                            logger.info("修改" + footballMatch.getId() + "比赛状态失败");
                         }
                     }
                 }
             }
             return result;
-        }catch (Exception e){
+        } catch (Exception e) {
             throw e;
         }
     }
 
 
-
     /**
      * 返回用户竞猜页列表(用户选择下注)
+     *
      * @param userID
      * @return
      */
@@ -271,11 +271,11 @@ public class MatchService implements IMatchService {
     public List<MatchInfoVo> getUserMatchList1(Integer userID) {
         FootballMatchExample footballMatchExample = new FootballMatchExample();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        footballMatchExample.createCriteria().andResultBetween(0,4).andStarttimeGreaterThanOrEqualTo(DateUtils.getYestodayStartTime());
+        footballMatchExample.createCriteria().andResultBetween(0, 4).andStarttimeGreaterThanOrEqualTo(DateUtils.getYestodayStartTime());
         footballMatchExample.setOrderByClause("StartTime asc");
         List<FootballMatch> footballMatches = footballMatchMapper.selectByExample(footballMatchExample);
         List<MatchInfoVo> matchInfoVoList = Lists.newArrayList();
-        for (FootballMatch footballMatch:footballMatches){
+        for (FootballMatch footballMatch : footballMatches) {
             MatchInfoVo matchInfoVo = new MatchInfoVo();
 
             FootballGuessRecordExample guessRecordExampleA = new FootballGuessRecordExample();
@@ -290,22 +290,21 @@ public class MatchService implements IMatchService {
             guessRecordExampleAC.createCriteria().andMatchidEqualTo(footballMatch.getId()).andUserguessEqualTo(3);
             BigDecimal C = footballGuessRecordMapper.countBetsByExample(guessRecordExampleAC);
 
-            if (A == null){
+            if (A == null) {
                 matchInfoVo.setCountA(new BigDecimal(0));
-            }else {
+            } else {
                 matchInfoVo.setCountA(A);
             }
-            if (B == null){
+            if (B == null) {
                 matchInfoVo.setCountB(new BigDecimal(0));
-            }else {
+            } else {
                 matchInfoVo.setCountB(B);
             }
-            if (C == null){
+            if (C == null) {
                 matchInfoVo.setCountC(new BigDecimal(0));
-            }else {
+            } else {
                 matchInfoVo.setCountC(C);
             }
-
 
 
             matchInfoVo.setId(footballMatch.getId());
@@ -327,9 +326,9 @@ public class MatchService implements IMatchService {
             FootballGuessRecordExample footballGuessRecordExample = new FootballGuessRecordExample();
             footballGuessRecordExample.createCriteria().andMatchidEqualTo(footballMatch.getId()).andUseridEqualTo(userID);
             List<FootballGuessRecord> footballGuessRecords = footballGuessRecordMapper.selectByExample(footballGuessRecordExample);
-            if (!ListUtils.isEmpty(footballGuessRecords)){
+            if (!ListUtils.isEmpty(footballGuessRecords)) {
                 matchInfoVo.setChoice(footballGuessRecords.get(0).getUserguess());
-            }else {
+            } else {
                 matchInfoVo.setChoice(0);
             }
             matchInfoVoList.add(matchInfoVo);
@@ -344,16 +343,16 @@ public class MatchService implements IMatchService {
     public boolean userChoice(Integer userId, Integer matchId, Integer userGuess, BigDecimal bet) {
         //判断比赛是否可下注
         Integer result = footballMatchMapper.selectByPrimaryKey(matchId).getResult();
-        if (result != 0 || bet == null){
+        if (result != 0 || bet == null) {
             return false;
-        }else {
+        } else {
             //判断用户余额是否足够下单
             FootballAmountExample footballAmountExample = new FootballAmountExample();
             footballAmountExample.createCriteria().andUseridEqualTo(userId);
             List<FootballAmount> footballAmounts = footballAmountMapper.selectByExample(footballAmountExample);
-            if (!ListUtils.isEmpty(footballAmounts)){
+            if (!ListUtils.isEmpty(footballAmounts)) {
                 BigDecimal totalAmount = footballAmounts.get(0).getTotalamount();
-                if (totalAmount.compareTo(bet) > -1 && bet.compareTo(new BigDecimal(0))>-1){
+                if (totalAmount.compareTo(bet) > -1 && bet.compareTo(new BigDecimal(0)) > -1) {
                     //修改用户余额
                     FootballAmount footballAmount = new FootballAmount();
                     footballAmount.setId(footballAmounts.get(0).getId());
@@ -367,6 +366,7 @@ public class MatchService implements IMatchService {
                     footballAmountRecord.setCreatetime(new Date());
                     footballAmountRecord.setUserid(userId);
                     footballAmountRecord.setType(1);
+                    footballAmountRecord.setStatus(1);
                     footballAmountRecordMapper.insertSelective(footballAmountRecord);
                     //添加用户下注记录
                     FootballGuessRecord footballGuessRecord = new FootballGuessRecord();
@@ -380,7 +380,7 @@ public class MatchService implements IMatchService {
                     return footballGuessRecordMapper.insertSelective(footballGuessRecord) > 0;
                 }
                 return false;
-            }else {
+            } else {
                 return false;
             }
         }
@@ -388,16 +388,17 @@ public class MatchService implements IMatchService {
 
     /**
      * 结算(自动结算)
+     *
      * @return
      */
     @Override
     public void Settlement1() {
         //查询所有需要结算的比赛
         FootballMatchExample footballMatchExample = new FootballMatchExample();
-        footballMatchExample.createCriteria().andResultBetween(1,3);
+        footballMatchExample.createCriteria().andResultBetween(1, 3);
         List<FootballMatch> footballMatches = footballMatchMapper.selectByExample(footballMatchExample);
         //结算
-        for (FootballMatch footballMatch:footballMatches){
+        for (FootballMatch footballMatch : footballMatches) {
             //查询所有下注人数金额
             FootballGuessRecordExample footballGuessRecordExample = new FootballGuessRecordExample();
             footballGuessRecordExample.createCriteria().andMatchidEqualTo(footballMatch.getId());
@@ -408,17 +409,17 @@ public class MatchService implements IMatchService {
             footballGuessRecordExample1.createCriteria().andMatchidEqualTo(footballMatch.getId()).andUserguessEqualTo(footballMatch.getResult());
             BigDecimal countWin = footballGuessRecordMapper.countBetsByExample(footballGuessRecordExample1);
             System.out.println(countWin);
-            if (countWin != null){
+            if (countWin != null) {
                 //猜对每份奖励
-                BigDecimal reward = count.divide(countWin,BigDecimal.ROUND_HALF_UP);
+                BigDecimal reward = count.divide(countWin, BigDecimal.ROUND_HALF_UP);
                 List<FootballGuessRecord> footballGuessRecordList = footballGuessRecordMapper.selectByExample(footballGuessRecordExample);
                 //每条记录添加奖金
-                for (FootballGuessRecord footballGuessRecord:footballGuessRecordList){
+                for (FootballGuessRecord footballGuessRecord : footballGuessRecordList) {
                     //查询用户金币表
                     FootballAmountExample footballAmountExample = new FootballAmountExample();
                     footballAmountExample.createCriteria().andUseridEqualTo(footballGuessRecord.getUserid());
                     List<FootballAmount> footballAmountList = footballAmountMapper.selectByExample(footballAmountExample);
-                    if (!ListUtils.isEmpty(footballAmountList)){
+                    if (!ListUtils.isEmpty(footballAmountList)) {
                         //更新用户金币表(根据每条记录)
                         FootballAmount footballAmount = footballAmountList.get(0);
                         BigDecimal totalamount = footballAmount.getTotalamount();
@@ -445,7 +446,6 @@ public class MatchService implements IMatchService {
                 BigDecimal countC = footballGuessRecordMapper.countBetsByExample(footballGuessRecordExampleC);
 
 
-
                 //添加比赛经历记录表
                 FootballMatchReward footballMatchReward = new FootballMatchReward();
                 footballMatchReward.setAacount(countA);
@@ -459,10 +459,10 @@ public class MatchService implements IMatchService {
                 FootballMatch footballMatchUpdate = new FootballMatch();
                 footballMatchUpdate.setResult(5);
                 footballMatchMapper.updateByPrimaryKeySelective(footballMatchUpdate);
-            }else {
+            } else {
                 //修改比赛状态已开奖
                 FootballMatch footballMatchUpdate = new FootballMatch();
-                footballMatchUpdate.setId(footballMatch.getId()                                                                 );
+                footballMatchUpdate.setId(footballMatch.getId());
                 footballMatchUpdate.setResult(5);
                 footballMatchMapper.updateByPrimaryKeySelective(footballMatchUpdate);
 
