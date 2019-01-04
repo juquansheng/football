@@ -41,7 +41,7 @@ public class WxService implements IWxService {
         WxCodeResultVo wxCodeResultVo = new WxCodeResultVo();
         FootballUser footballUser = new FootballUser();
         try {
-            if (code == null || code == "") {
+            if (code == null || code.equals("")) {
                 // code 是空的！
                 //logger.error("code 是空的");
                 return null;
